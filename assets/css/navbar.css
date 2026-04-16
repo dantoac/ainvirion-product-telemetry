@@ -1,0 +1,407 @@
+/* =========================================================================
+   Island Navbar — AInvirion convention
+   Standard (transparent, full-width) → Island (pill, scrolled)
+   ========================================================================= */
+
+.island-navbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-navbar);
+  width: 100%;
+  max-width: var(--container-max);
+  padding-inline: var(--container-x);
+  padding-block: var(--space-sm);
+
+  --island-bg: color-mix(in oklch, var(--bg-elevated) 88%, transparent);
+
+  background: transparent;
+  border-radius: 0;
+  border: var(--border-width) solid transparent;
+  transition:
+    width var(--duration-slow) var(--ease-out-expo),
+    max-width var(--duration-slow) var(--ease-out-expo),
+    padding var(--duration-base) var(--ease-out-expo),
+    background var(--duration-slow) var(--ease-out-expo),
+    border-color var(--duration-slow) var(--ease-out-expo),
+    border-radius var(--duration-slow) var(--ease-out-expo),
+    box-shadow var(--duration-slow) var(--ease-out-expo),
+    margin-top var(--duration-slow) var(--ease-out-expo);
+}
+
+.island-navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+/* ---------- Brand ---------- */
+.island-navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.island-navbar__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-xs);
+  background: var(--accent);
+  color: var(--text-on-accent);
+  flex-shrink: 0;
+}
+
+.island-navbar__wordmark {
+  display: inline-block;
+}
+
+/* ---------- Primary nav ---------- */
+.island-navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-left: auto;
+}
+
+.island-navbar__nav a {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.1rem;
+  position: relative;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-out-quart);
+}
+
+.island-navbar__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.island-navbar__nav a:hover {
+  color: var(--text);
+}
+
+.island-navbar__nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Actions ---------- */
+.island-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.island-navbar__signin {
+  font-size: var(--fs-sm);
+}
+
+.island-navbar__cta {
+  font-size: var(--fs-sm);
+  padding: 0.55rem 1rem;
+}
+
+/* Lang switcher */
+.lang-switcher {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out-quart),
+              color var(--duration-fast) var(--ease-out-quart);
+}
+
+.lang-switcher:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.lang-switcher:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border);
+  color: var(--text-secondary);
+  transition: border-color var(--duration-fast) var(--ease-out-quart),
+              color var(--duration-fast) var(--ease-out-quart);
+}
+
+.theme-toggle:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle__icon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--sun,
+:root:not([data-theme]) .theme-toggle__icon--sun {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle__icon--moon {
+  display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .theme-toggle__icon--sun {
+    display: none;
+  }
+  :root:not([data-theme]) .theme-toggle__icon--moon {
+    display: block;
+  }
+}
+
+/* ---------- Hamburger (mobile only) ---------- */
+.island-navbar__menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out-quart),
+    color var(--duration-fast) var(--ease-out-quart),
+    background var(--duration-fast) var(--ease-out-quart);
+}
+
+.island-navbar__menu:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.island-navbar__menu:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.island-navbar__menu-icon--close {
+  display: none;
+}
+
+.island-navbar__menu[aria-expanded="true"] .island-navbar__menu-icon--open {
+  display: none;
+}
+
+.island-navbar__menu[aria-expanded="true"] .island-navbar__menu-icon--close {
+  display: block;
+}
+
+/* =========================================================================
+   Mobile drawer
+   ========================================================================= */
+
+.nav-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-navbar) - 1);
+  background: color-mix(in oklch, var(--bg) 60%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out-expo);
+}
+
+.nav-drawer-overlay[data-open="true"] {
+  opacity: 1;
+}
+
+.nav-drawer {
+  position: fixed;
+  top: calc(var(--space-sm) + 56px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
+  z-index: var(--z-navbar);
+  width: calc(100% - 2rem);
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs, 0.25rem);
+  padding: var(--space-sm);
+  background: color-mix(in oklch, var(--bg-elevated) 92%, transparent);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg, var(--radius-md));
+  box-shadow:
+    0 1px 2px oklch(0 0 0 / 0.06),
+    0 16px 48px -16px oklch(0 0 0 / 0.28),
+    0 0 0 1px color-mix(in oklch, var(--accent) 10%, transparent) inset;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.nav-drawer[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-drawer__link {
+  display: block;
+  padding: 0.85rem 0.9rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  transition:
+    background var(--duration-fast) var(--ease-out-quart),
+    color var(--duration-fast) var(--ease-out-quart);
+}
+
+.nav-drawer__link:hover,
+.nav-drawer__link:focus-visible {
+  background: color-mix(in oklch, var(--accent) 10%, transparent);
+  color: var(--text);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-drawer,
+  .nav-drawer-overlay {
+    transition: none;
+  }
+}
+
+/* =========================================================================
+   Scrolled state — morphs into island pill
+   ========================================================================= */
+
+.island-navbar[data-state="scrolled"] {
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  margin-top: 12px;
+  padding-block: 0.45rem;
+  padding-inline: 0.6rem 0.6rem;
+  background: var(--island-bg);
+  border-radius: var(--radius-pill);
+  border-color: var(--border);
+  box-shadow:
+    0 1px 2px oklch(0 0 0 / 0.06),
+    0 8px 32px -12px oklch(0 0 0 / 0.20),
+    0 0 0 1px color-mix(in oklch, var(--accent) 12%, transparent) inset;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+}
+
+.island-navbar[data-state="scrolled"] .island-navbar__inner {
+  gap: var(--space-md);
+}
+
+.island-navbar[data-state="scrolled"] .island-navbar__nav {
+  gap: var(--space-md);
+}
+
+.island-navbar[data-state="scrolled"] .island-navbar__signin {
+  display: none;
+}
+
+/* =========================================================================
+   Mobile
+   ========================================================================= */
+
+@media (max-width: 880px) {
+  .island-navbar__nav,
+  .island-navbar__signin {
+    display: none;
+  }
+
+  .island-navbar__menu {
+    display: inline-flex;
+  }
+
+  .island-navbar__inner {
+    gap: var(--space-sm);
+  }
+
+  .island-navbar__cta {
+    padding: 0.5rem 0.85rem;
+    font-size: var(--fs-2xs);
+  }
+
+  .lang-switcher {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .theme-toggle {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 881px) {
+  .nav-drawer,
+  .nav-drawer-overlay {
+    display: none !important;
+  }
+}
+
+/* Entrance */
+@media (prefers-reduced-motion: no-preference) {
+  .island-navbar {
+    animation: navbar-entrance 700ms var(--ease-out-expo) both;
+  }
+}
+
+@keyframes navbar-entrance {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

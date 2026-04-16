@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (_) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+  <title>Product Telemetry — self-hosted product analytics</title>
+  <meta name="description" content="Open, self-hosted product analytics. Ingest events, build funnels, slice cohorts. Yours, on your infrastructure. Built by AInvirion.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <link rel="alternate" hreflang="en" href="/index.html">
+  <link rel="alternate" hreflang="es" href="/index.html?lang=es">
+  <link rel="alternate" hreflang="x-default" href="/index.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+</head>
+<body>
+
+  <a href="#main" class="sr-only">Skip to main content</a>
+
+  <!-- ==========================================================
+       NAVBAR — Island, AInvirion convention
+       ========================================================== -->
+  <header class="island-navbar" id="navbar" data-state="top">
+    <div class="island-navbar__inner">
+      <a href="#" class="island-navbar__brand" aria-label="Product Telemetry — home">
+        <span class="island-navbar__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="20" x2="21" y2="20" opacity=".35"/>
+            <polyline points="3,17 8,13 13,15 19,5"/>
+            <circle cx="19" cy="5" r="2" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="island-navbar__wordmark">Product Telemetry</span>
+      </a>
+
+      <nav class="island-navbar__nav" aria-label="Primary">
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#theater" data-i18n="nav.theater">Demo</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#docs" data-i18n="nav.docs">Self-host</a>
+      </nav>
+
+      <div class="island-navbar__actions">
+        <select class="lang-switcher" aria-label="Language" data-lang-switcher>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="/login" class="btn btn--text island-navbar__signin" data-i18n="nav.signin">Sign in</a>
+        <a href="/register" class="btn btn--primary island-navbar__cta" data-i18n="nav.cta">Start free</a>
+
+        <button
+          class="island-navbar__menu"
+          type="button"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="nav-drawer"
+          data-nav-toggle
+        >
+          <svg class="island-navbar__menu-icon island-navbar__menu-icon--open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+          <svg class="island-navbar__menu-icon island-navbar__menu-icon--close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================
+       MOBILE NAV DRAWER
+       ========================================================== -->
+  <div class="nav-drawer-overlay" data-nav-overlay hidden></div>
+  <nav
+    class="nav-drawer"
+    id="nav-drawer"
+    aria-label="Mobile primary"
+    aria-hidden="true"
+    hidden
+  >
+    <a href="#features" class="nav-drawer__link" data-i18n="nav.features" data-nav-link>Features</a>
+    <a href="#theater" class="nav-drawer__link" data-i18n="nav.theater" data-nav-link>Demo</a>
+    <a href="#pricing" class="nav-drawer__link" data-i18n="nav.pricing" data-nav-link>Pricing</a>
+    <a href="#faq" class="nav-drawer__link" data-i18n="nav.faq" data-nav-link>FAQ</a>
+    <a href="#docs" class="nav-drawer__link" data-i18n="nav.docs" data-nav-link>Self-host</a>
+  </nav>
+
+  <main id="main">
+
+    <!-- ==========================================================
+         HERO
+         ========================================================== -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="eyebrow" data-i18n="hero.eyebrow">Self-hosted product analytics</span>
+
+          <h1 class="hero__title">
+            <span data-i18n="hero.title.line1">Your events.</span><br>
+            <span data-i18n="hero.title.line2">Your database.</span><br>
+            <span class="hero__title-em" data-i18n="hero.title.line3">Your call.</span>
+          </h1>
+
+          <p class="hero__lede" data-i18n="hero.lede">
+            Product analytics you actually run yourself. Ingest events, build funnels, slice cohorts — without shipping your users to a third-party warehouse.
+          </p>
+
+          <div class="hero__actions">
+            <a href="/register" class="btn btn--primary btn--lg" data-i18n="hero.cta.primary">Start free</a>
+            <a href="#theater" class="btn btn--ghost btn--lg" data-i18n="hero.cta.secondary">See it live ↓</a>
+          </div>
+
+          <ul class="hero__meta" aria-label="Key facts">
+            <li>
+              <span class="hero__meta-key mono" data-i18n="hero.meta.stack.label">built with</span>
+              <span class="hero__meta-val" data-i18n="hero.meta.stack">FastAPI · Postgres · React</span>
+            </li>
+            <li>
+              <span class="hero__meta-key mono" data-i18n="hero.meta.deploy.label">runs on</span>
+              <span class="hero__meta-val" data-i18n="hero.meta.deploy">Docker · Compose · DO App</span>
+            </li>
+            <li>
+              <span class="hero__meta-key mono" data-i18n="hero.meta.license.label">source</span>
+              <span class="hero__meta-val" data-i18n="hero.meta.license">Available · ask for access</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero__panel" data-copy-target>
+          <div class="hero__panel-chrome">
+            <span class="hero__panel-dot" aria-hidden="true"></span>
+            <span class="hero__panel-dot" aria-hidden="true"></span>
+            <span class="hero__panel-dot" aria-hidden="true"></span>
+            <span class="hero__panel-title mono">events.live · 1812 evt/s</span>
+            <button class="copy-btn" type="button" data-copy-btn aria-label="Copy ingest example">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="copy-btn-icon copy-btn-icon--clip">
+                <rect x="9" y="9" width="11" height="11" rx="1.5"></rect>
+                <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="copy-btn-icon copy-btn-icon--check">
+                <path d="M4 12l5 5L20 6"></path>
+              </svg>
+              <span class="copy-btn-label" data-copy-label data-i18n="common.copy.idle">copy</span>
+            </button>
+          </div>
+          <div class="hero__panel-body">
+            <pre class="hero__code"><code data-copy-source><span class="tok-c">// POST /api/ingest</span>
+<span class="tok-k">await</span> fetch(endpoint, {
+  method: <span class="tok-s">"POST"</span>,
+  headers: { <span class="tok-s">"X-Ingest-Key"</span>: key },
+  body: JSON.stringify({ events: [{
+    event_name: <span class="tok-s">"checkout.completed"</span>,
+    event_type: <span class="tok-s">"lifecycle"</span>,
+    client_id:  <span class="tok-s">"u_8a91"</span>,
+    timestamp:  <span class="tok-k">new</span> Date().toISOString(),
+    properties: { plan: <span class="tok-s">"pro"</span>, mrr: <span class="tok-n">29</span> }
+  }]})
+})</code></pre>
+            <ul class="hero__feed" id="hero-feed" aria-hidden="true">
+              <li><span class="mono">19:42:01</span> <span class="hero__feed-evt">page.viewed</span> <span class="hero__feed-user">u_3f02</span></li>
+              <li><span class="mono">19:42:01</span> <span class="hero__feed-evt">checkout.started</span> <span class="hero__feed-user">u_a811</span></li>
+              <li><span class="mono">19:42:02</span> <span class="hero__feed-evt">checkout.completed</span> <span class="hero__feed-user">u_a811</span></li>
+              <li><span class="mono">19:42:02</span> <span class="hero__feed-evt">signup.completed</span> <span class="hero__feed-user">u_5d20</span></li>
+              <li><span class="mono">19:42:03</span> <span class="hero__feed-evt">feature.activated</span> <span class="hero__feed-user">u_7c14</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         PRODUCT THEATER (morphs)
+         ========================================================== -->
+    <section class="theater section section--bordered" id="theater">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="theater.eyebrow">Product theater</span>
+          <h2 class="section-header__title" data-i18n="theater.title">Watch events become decisions.</h2>
+          <p class="section-header__lede" data-i18n="theater.lede">
+            Three minute-long stories. Click a tab — or just watch them rotate.
+          </p>
+        </div>
+
+        <div class="pt" data-pt>
+          <div class="pt__tabs" role="tablist" aria-label="Product theater">
+            <button class="pt__tab is-active" type="button" role="tab" id="pt-tab-ingest" data-pt-tab="ingest" aria-selected="true" aria-controls="pt-panel-ingest" tabindex="0">
+              <span class="mono" aria-hidden="true">01</span>
+              <span data-i18n="theater.tab.ingest">Ingest</span>
+              <span class="pt__tab__progress" data-pt-progress aria-hidden="true"></span>
+            </button>
+            <button class="pt__tab" type="button" role="tab" id="pt-tab-funnel" data-pt-tab="funnel" aria-selected="false" aria-controls="pt-panel-funnel" tabindex="-1">
+              <span class="mono" aria-hidden="true">02</span>
+              <span data-i18n="theater.tab.funnel">Funnel</span>
+              <span class="pt__tab__progress" data-pt-progress aria-hidden="true"></span>
+            </button>
+            <button class="pt__tab" type="button" role="tab" id="pt-tab-cohort" data-pt-tab="cohort" aria-selected="false" aria-controls="pt-panel-cohort" tabindex="-1">
+              <span class="mono" aria-hidden="true">03</span>
+              <span data-i18n="theater.tab.cohort">Cohort</span>
+              <span class="pt__tab__progress" data-pt-progress aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="pt__viewport">
+
+            <!-- Morph 01: Ingest -->
+            <div class="pt-panel is-active" id="pt-panel-ingest" role="tabpanel" aria-labelledby="pt-tab-ingest" tabindex="0" data-pt-panel="ingest" data-product="ingest">
+              <div class="pt-panel__caption">
+                <p class="mono pt-panel__step" data-i18n="theater.ingest.step">// 01 — events arrive</p>
+                <h3 class="pt-panel__title" data-i18n="theater.ingest.title">Events stream in. The pipeline never blocks.</h3>
+                <p class="pt-panel__lede" data-i18n="theater.ingest.lede">
+                  Async ingest workers absorb spikes. Validation happens at the edge, persistence happens in the background, your client gets a 202 in single-digit milliseconds.
+                </p>
+              </div>
+              <div class="pt-panel__stage" aria-hidden="true">
+                <div class="morph morph--in">
+                  <div class="morph--in__client">
+                    <span class="morph--in__node-label">client</span>
+                    <span class="morph--in__node-meta mono">POST</span>
+                  </div>
+
+                  <div class="morph--in__pipe-wrap">
+                    <span class="morph--in__latency mono">~6 ms</span>
+                    <div class="morph--in__pipe">
+                      <span class="morph--in__pulse"></span>
+                      <span class="morph--in__pulse"></span>
+                      <span class="morph--in__pulse"></span>
+                      <span class="morph--in__pulse"></span>
+                    </div>
+                    <span class="morph--in__pipe-hint mono">async</span>
+                  </div>
+
+                  <div class="morph--in__db-wrap">
+                    <span class="morph--in__status mono">202 OK</span>
+                    <div class="morph--in__db">
+                      <span class="morph--in__node-label">postgres</span>
+                      <span class="morph--in__node-meta mono">async queue</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Morph 02: Funnel -->
+            <div class="pt-panel" id="pt-panel-funnel" role="tabpanel" aria-labelledby="pt-tab-funnel" tabindex="0" hidden data-pt-panel="funnel" data-product="funnel">
+              <div class="pt-panel__caption">
+                <p class="mono pt-panel__step" data-i18n="theater.funnel.step">// 02 — funnels assemble</p>
+                <h3 class="pt-panel__title" data-i18n="theater.funnel.title">Drop the steps. The funnel builds itself.</h3>
+                <p class="pt-panel__lede" data-i18n="theater.funnel.lede">
+                  No SQL gymnastics. Pick events, set the order, watch conversion rates fall into place — segmented by anything you've ever sent as a property.
+                </p>
+              </div>
+              <div class="pt-panel__stage" aria-hidden="true">
+                <div class="morph morph--fn">
+                  <div class="morph--fn__stage" style="--top: 100; --bot: 64; --tint: 1">
+                    <span class="morph--fn__label">page.viewed</span>
+                    <div class="morph--fn__shape"></div>
+                    <span class="morph--fn__pct">100%</span>
+                  </div>
+                  <div class="morph--fn__stage" style="--top: 64; --bot: 38; --tint: 2">
+                    <span class="morph--fn__label">signup.started</span>
+                    <div class="morph--fn__shape"></div>
+                    <span class="morph--fn__pct">64%</span>
+                  </div>
+                  <div class="morph--fn__stage" style="--top: 38; --bot: 21; --tint: 3">
+                    <span class="morph--fn__label">signup.completed</span>
+                    <div class="morph--fn__shape"></div>
+                    <span class="morph--fn__pct">38%</span>
+                  </div>
+                  <div class="morph--fn__stage" style="--top: 21; --bot: 12; --tint: 4">
+                    <span class="morph--fn__label">checkout.completed</span>
+                    <div class="morph--fn__shape"></div>
+                    <span class="morph--fn__pct">21%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Morph 03: Cohort -->
+            <div class="pt-panel" id="pt-panel-cohort" role="tabpanel" aria-labelledby="pt-tab-cohort" tabindex="0" hidden data-pt-panel="cohort" data-product="cohort">
+              <div class="pt-panel__caption">
+                <p class="mono pt-panel__step" data-i18n="theater.cohort.step">// 03 — cohorts light up</p>
+                <h3 class="pt-panel__title" data-i18n="theater.cohort.title">Slice retention by anything you tracked.</h3>
+                <p class="pt-panel__lede" data-i18n="theater.cohort.lede">
+                  Plan, country, device, referrer — every property becomes a dimension. Heatmaps update as the data lands.
+                </p>
+              </div>
+              <div class="pt-panel__stage" aria-hidden="true">
+                <div class="morph morph--co">
+                  <div class="morph--co__head mono">
+                    <span class="morph--co__corner">cohort</span>
+                    <span>W0</span>
+                    <span>W1</span>
+                    <span>W2</span>
+                    <span>W3</span>
+                    <span>W4</span>
+                  </div>
+                  <div class="morph--co__row" style="--row: 1">
+                    <span class="morph--co__label mono">W&minus;5</span>
+                    <span class="morph--co__cell" style="--v: 100" data-depth="5">100</span>
+                    <span class="morph--co__cell" style="--v: 62" data-depth="4">62</span>
+                    <span class="morph--co__cell" style="--v: 44" data-depth="3">44</span>
+                    <span class="morph--co__cell" style="--v: 33" data-depth="2">33</span>
+                    <span class="morph--co__cell" style="--v: 28" data-depth="2">28</span>
+                  </div>
+                  <div class="morph--co__row" style="--row: 2">
+                    <span class="morph--co__label mono">W&minus;4</span>
+                    <span class="morph--co__cell" style="--v: 100" data-depth="5">100</span>
+                    <span class="morph--co__cell" style="--v: 58" data-depth="4">58</span>
+                    <span class="morph--co__cell" style="--v: 41" data-depth="3">41</span>
+                    <span class="morph--co__cell" style="--v: 31" data-depth="2">31</span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                  </div>
+                  <div class="morph--co__row" style="--row: 3">
+                    <span class="morph--co__label mono">W&minus;3</span>
+                    <span class="morph--co__cell" style="--v: 100" data-depth="5">100</span>
+                    <span class="morph--co__cell" style="--v: 55" data-depth="4">55</span>
+                    <span class="morph--co__cell" style="--v: 38" data-depth="3">38</span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                  </div>
+                  <div class="morph--co__row" style="--row: 4">
+                    <span class="morph--co__label mono">W&minus;2</span>
+                    <span class="morph--co__cell" style="--v: 100" data-depth="5">100</span>
+                    <span class="morph--co__cell" style="--v: 51" data-depth="3">51</span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                  </div>
+                  <div class="morph--co__row" style="--row: 5">
+                    <span class="morph--co__label mono">W&minus;1</span>
+                    <span class="morph--co__cell" style="--v: 100" data-depth="5">100</span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                    <span class="morph--co__cell morph--co__cell--empty" aria-hidden="true"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         FEATURES
+         ========================================================== -->
+    <section class="features section section--bordered" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="features.eyebrow">What's in the box</span>
+          <h2 class="section-header__title" data-i18n="features.title">Six things you'd otherwise glue together.</h2>
+        </div>
+
+        <ul class="features__grid">
+          <li class="feature">
+            <span class="feature__num mono">01</span>
+            <h3 class="feature__title" data-i18n="features.ingest.title">Async event ingestion</h3>
+            <p class="feature__body" data-i18n="features.ingest.body">
+              Buffered writes, schema validation, idempotency keys. Survives traffic spikes without dropping.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__num mono">02</span>
+            <h3 class="feature__title" data-i18n="features.funnels.title">Conversion funnels</h3>
+            <p class="feature__body" data-i18n="features.funnels.body">
+              Multi-step funnels with property-level segmentation. Time-to-convert distributions included.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__num mono">03</span>
+            <h3 class="feature__title" data-i18n="features.analytics.title">Live analytics</h3>
+            <p class="feature__body" data-i18n="features.analytics.body">
+              Charts that update as events land. Slice by any property you've ever tracked.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__num mono">04</span>
+            <h3 class="feature__title" data-i18n="features.cohorts.title">Cohort distributions</h3>
+            <p class="feature__body" data-i18n="features.cohorts.body">
+              Retention heatmaps, behavioral cohorts, custom segments. Everything queryable from SQL too.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__num mono">05</span>
+            <h3 class="feature__title" data-i18n="features.gdpr.title">GDPR primitives</h3>
+            <p class="feature__body" data-i18n="features.gdpr.body">
+              Right-to-erasure endpoints, audit logs, PII tagging. Data subject requests stop being ad hoc.
+            </p>
+          </li>
+          <li class="feature">
+            <span class="feature__num mono">06</span>
+            <h3 class="feature__title" data-i18n="features.selfhost.title">Self-hosted, by default</h3>
+            <p class="feature__body" data-i18n="features.selfhost.body">
+              Docker image, compose file, DigitalOcean App Platform spec. Your data, your VPC, your bill.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         PRICING
+         ========================================================== -->
+    <section class="pricing section section--bordered" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="pricing.eyebrow">Pricing</span>
+          <h2 class="section-header__title" data-i18n="pricing.title">Pay for what you run, not per seat.</h2>
+          <p class="section-header__lede" data-i18n="pricing.lede">
+            Two tiers. No "contact sales." Self-host is always free.
+          </p>
+        </div>
+
+        <ul class="pricing__grid">
+          <li class="plan">
+            <header class="plan__header">
+              <h3 class="plan__name" data-i18n="pricing.plan.self.name">Self-hosted</h3>
+              <p class="plan__price">
+                <span class="plan__amount">$0</span>
+                <span class="plan__period mono" data-i18n="pricing.plan.self.period">forever</span>
+              </p>
+            </header>
+            <p class="plan__lede" data-i18n="pricing.plan.self.lede">
+              Run it on your own infrastructure. No event limits, no feature gates.
+            </p>
+            <ul class="plan__features">
+              <li data-i18n="pricing.plan.self.f1">All product features</li>
+              <li data-i18n="pricing.plan.self.f2">Source access (NDA)</li>
+              <li data-i18n="pricing.plan.self.f3">Community support via GitHub Issues</li>
+            </ul>
+            <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" data-i18n="pricing.plan.self.cta">Get access</a>
+          </li>
+
+          <li class="plan plan--featured">
+            <header class="plan__header">
+              <h3 class="plan__name" data-i18n="pricing.plan.cloud.name">Managed cloud</h3>
+              <p class="plan__price">
+                <span class="plan__amount">$49</span>
+                <span class="plan__period mono" data-i18n="pricing.plan.cloud.period">/ project / mo</span>
+              </p>
+            </header>
+            <p class="plan__lede" data-i18n="pricing.plan.cloud.lede">
+              We run it for you on AInvirion infrastructure. SLA, backups, upgrades.
+            </p>
+            <ul class="plan__features">
+              <li data-i18n="pricing.plan.cloud.f1">5M events / month included</li>
+              <li data-i18n="pricing.plan.cloud.f2">Daily backups, 30-day retention</li>
+              <li data-i18n="pricing.plan.cloud.f3">Priority support · 24h SLA</li>
+            </ul>
+            <a href="/register" class="btn btn--primary" data-i18n="pricing.plan.cloud.cta">Start free trial</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SELF-HOST QUICKSTART (acts as #docs anchor)
+         ========================================================== -->
+    <section class="docs section section--bordered" id="docs">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="docs.eyebrow">Docs · Self-host</span>
+          <h2 class="section-header__title" data-i18n="docs.title">Run the whole stack in 60 seconds.</h2>
+          <p class="section-header__lede" data-i18n="docs.lede">
+            One Postgres, one FastAPI, one container network. The way you'd ship it yourself.
+          </p>
+        </div>
+
+        <div class="docs__grid">
+          <!-- Terminal panel — protagonist -->
+          <div class="docs__terminal" data-copy-target>
+            <div class="docs__terminal-chrome">
+              <span class="hero__panel-dot"></span>
+              <span class="hero__panel-dot"></span>
+              <span class="hero__panel-dot"></span>
+              <span class="docs__terminal-title mono">quickstart.sh</span>
+              <button class="copy-btn" type="button" data-copy-btn aria-label="Copy quickstart command">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="copy-btn-icon copy-btn-icon--clip">
+                  <rect x="9" y="9" width="11" height="11" rx="1.5"></rect>
+                  <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
+                </svg>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="copy-btn-icon copy-btn-icon--check">
+                  <path d="M4 12l5 5L20 6"></path>
+                </svg>
+                <span class="copy-btn-label" data-copy-label data-i18n="common.copy.idle">copy</span>
+              </button>
+            </div>
+            <pre class="docs__terminal-body"><code data-copy-source>$ git clone git@github.com:AInvirion/Product-Telemetry.git
+$ cd Product-Telemetry
+$ cp backend/.env.example backend/.env
+$ docker compose up -d
+<span class="tok-c">→ api    http://localhost:8000  ✓</span>
+<span class="tok-c">→ db     postgres:5432         ✓</span></code></pre>
+          </div>
+
+          <!-- Specs grid — supporting evidence -->
+          <aside class="docs__specs" aria-labelledby="docs-specs-title">
+            <header class="docs__specs-head">
+              <h3 class="docs__specs-title mono" id="docs-specs-title" data-i18n="docs.specs.title">// targets</h3>
+              <p class="docs__specs-note" data-i18n="docs.specs.note">Honest targets, not benchmarks.</p>
+            </header>
+            <dl class="docs__specs-list">
+              <div class="docs__specs-row">
+                <dt class="mono">runtime</dt>
+                <dd>Python 3.11+</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">database</dt>
+                <dd>Postgres 16</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">cache</dt>
+                <dd data-i18n="docs.specs.cache">Redis 7 (optional)</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">ram (min)</dt>
+                <dd>1 GiB</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">ram (rec)</dt>
+                <dd>4 GiB</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">disk</dt>
+                <dd data-i18n="docs.specs.disk">10 GiB + ~1 GiB / 10M events</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">throughput</dt>
+                <dd data-i18n="docs.specs.throughput">~2k evt/s · 1 vCPU</dd>
+              </div>
+              <div class="docs__specs-row">
+                <dt class="mono">deploy</dt>
+                <dd>Docker · Compose · DO App</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+
+        <!-- Docs index — what's inside the repo -->
+        <div class="docs__index">
+          <p class="docs__index-label mono" data-i18n="docs.index.label">// what's in the repo</p>
+          <ul class="docs__index-list">
+            <li>
+              <span class="mono docs__index-path">docs/quickstart.md</span>
+              <span class="docs__index-desc" data-i18n="docs.index.quickstart">5-minute end-to-end setup</span>
+            </li>
+            <li>
+              <span class="mono docs__index-path">docs/self-hosting.md</span>
+              <span class="docs__index-desc" data-i18n="docs.index.selfhost">Production deploy, backups, upgrades</span>
+            </li>
+            <li>
+              <span class="mono docs__index-path">docs/api.md</span>
+              <span class="docs__index-desc" data-i18n="docs.index.api">REST endpoint reference</span>
+            </li>
+            <li>
+              <span class="mono docs__index-path">docs/sdks.md</span>
+              <span class="docs__index-desc" data-i18n="docs.index.sdks">Thin TS and Python helpers</span>
+            </li>
+            <li>
+              <span class="mono docs__index-path">docs/funnels.md</span>
+              <span class="docs__index-desc" data-i18n="docs.index.funnels">Funnel definition guide</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Muted footer note -->
+        <aside class="docs__banner" role="note">
+          <div class="docs__banner-body">
+            <p class="docs__banner-text" data-i18n="docs.banner.text">
+              Full docs ship with v1.0 — this page is the quickstart.
+            </p>
+          </div>
+          <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost docs__banner-cta" data-i18n="docs.banner.cta">Request access ↗</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         FAQ
+         ========================================================== -->
+    <section class="faq section section--bordered" id="faq">
+      <div class="container faq__inner">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="faq.eyebrow">FAQ</span>
+          <h2 class="section-header__title" data-i18n="faq.title">Things you actually want to know.</h2>
+        </div>
+
+        <ol class="faq__list">
+          <li>
+            <details class="faq__item">
+              <summary>
+                <span class="faq__num mono">01</span>
+                <span class="faq__q" data-i18n="faq.q1.q">Can I really run this on my own box?</span>
+                <span class="faq__chev" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__a" data-i18n="faq.q1.a">
+                Yes. There's a Dockerfile, a docker-compose.yml, and a DigitalOcean App Platform spec. Bring Postgres 16 and a small VM and you're running.
+              </div>
+            </details>
+          </li>
+          <li>
+            <details class="faq__item">
+              <summary>
+                <span class="faq__num mono">02</span>
+                <span class="faq__q" data-i18n="faq.q2.q">Why not just use PostHog or Mixpanel?</span>
+                <span class="faq__chev" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__a" data-i18n="faq.q2.a">
+                Because sometimes you can't ship user identifiers to a third party — and "self-hosted PostHog" has a footprint we couldn't justify for a small team. Product Telemetry is FastAPI + Postgres. That's it.
+              </div>
+            </details>
+          </li>
+          <li>
+            <details class="faq__item">
+              <summary>
+                <span class="faq__num mono">03</span>
+                <span class="faq__q" data-i18n="faq.q3.q">What's the SDK story?</span>
+                <span class="faq__chev" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__a" data-i18n="faq.q3.a">
+                A single REST endpoint with an API key header. Wrap it in 12 lines of whatever language you're in. We ship thin TS and Python helpers, no obligation to use them.
+              </div>
+            </details>
+          </li>
+          <li>
+            <details class="faq__item">
+              <summary>
+                <span class="faq__num mono">04</span>
+                <span class="faq__q" data-i18n="faq.q4.q">Is the source code open?</span>
+                <span class="faq__chev" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__a" data-i18n="faq.q4.a">
+                Source-available under NDA, not OSS. You can read, run, and modify it for your own use. Redistribution is restricted. The license file in the repo is authoritative.
+              </div>
+            </details>
+          </li>
+          <li>
+            <details class="faq__item">
+              <summary>
+                <span class="faq__num mono">05</span>
+                <span class="faq__q" data-i18n="faq.q5.q">How do I report a bug or get help?</span>
+                <span class="faq__chev" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__a" data-i18n="faq.q5.a">
+                Open an issue on the AInvirion support repo on GitHub. That's the one and only support channel — no email, no Discord, no Slack workspace to lose track of.
+              </div>
+            </details>
+          </li>
+          <li>
+            <details class="faq__item">
+              <summary>
+                <span class="faq__num mono">06</span>
+                <span class="faq__q" data-i18n="faq.q6.q">What happens to my data on the managed plan?</span>
+                <span class="faq__chev" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__a" data-i18n="faq.q6.a">
+                It lives in a dedicated Postgres instance on AInvirion infrastructure (Seattle or Santiago region). Daily encrypted backups, 30-day retention, GDPR data subject endpoints exposed.
+              </div>
+            </details>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         FINAL CTA
+         ========================================================== -->
+    <section class="cta-band section">
+      <div class="container cta-band__inner">
+        <div>
+          <h2 class="cta-band__title" data-i18n="cta.title">Ship your own analytics this week.</h2>
+          <p class="cta-band__lede" data-i18n="cta.lede">
+            Spin up the stack in an afternoon. Start sending events tonight.
+          </p>
+        </div>
+        <div class="cta-band__actions">
+          <a href="/register" class="btn btn--primary btn--lg" data-i18n="cta.primary">Start free</a>
+          <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--lg" data-i18n="cta.secondary">Talk to us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+       FOOTER — Two-tier, AInvirion convention
+       ========================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand__lockup">
+            <span class="island-navbar__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="20" x2="21" y2="20" opacity=".35"/>
+                <polyline points="3,17 8,13 13,15 19,5"/>
+                <circle cx="19" cy="5" r="2" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <strong>Product Telemetry</strong>
+          </div>
+          <p class="footer-tagline" data-i18n="footer.tagline">Self-hosted product analytics, by AInvirion.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#features" data-i18n="footer.nav.features">Features</a>
+          <a href="#pricing" data-i18n="footer.nav.pricing">Pricing</a>
+          <a href="#faq" data-i18n="footer.nav.faq">FAQ</a>
+          <a href="#docs" data-i18n="footer.nav.docs">Self-host</a>
+        </nav>
+
+        <div class="footer-contact">
+          <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" data-i18n="footer.support">Get support</a>
+          <span class="footer-phone mono">(425) 276-7365</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-legal">© <span data-year>2026</span> AInvirion · Seattle, USA · Santiago, Chile</p>
+        <nav class="footer-legal-links" aria-label="Legal">
+          <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
+          <a href="#" data-i18n="footer.terms">Terms of Service</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/morphs.js"></script>
+</body>
+</html>

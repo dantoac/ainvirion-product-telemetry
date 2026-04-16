@@ -1,0 +1,232 @@
+/* =========================================================================
+   Product Telemetry — Design Tokens
+   AInvirion semantic token set, refined hacker / terminal aesthetic.
+   ========================================================================= */
+
+:root {
+  /* ---------- Type: families ---------- */
+  --font-display: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---------- Type: scale (modular ~1.333) ---------- */
+  --fs-2xs: 0.6875rem;   /* 11px */
+  --fs-xs: 0.8125rem;    /* 13px */
+  --fs-sm: 0.9375rem;    /* 15px */
+  --fs-base: 1rem;       /* 16px */
+  --fs-md: 1.125rem;     /* 18px */
+  --fs-lg: 1.375rem;     /* 22px */
+  --fs-xl: 1.75rem;      /* 28px */
+  --fs-2xl: 2.25rem;     /* 36px */
+  --fs-3xl: clamp(2.5rem, 4vw + 1rem, 4rem);
+  --fs-display: clamp(3rem, 5.5vw + 1rem, 5.75rem);
+
+  /* ---------- Type: line-heights ---------- */
+  --lh-tight: 1.05;
+  --lh-snug: 1.2;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.6;
+
+  /* ---------- Type: weights ---------- */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* ---------- Type: tracking ---------- */
+  --tracking-tight: -0.02em;
+  --tracking-display: -0.035em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-mono: -0.005em;
+
+  /* ---------- Spacing scale (4pt grid) ---------- */
+  --space-2xs: 0.25rem;  /* 4 */
+  --space-xs: 0.5rem;    /* 8 */
+  --space-sm: 0.75rem;   /* 12 */
+  --space-md: 1rem;      /* 16 */
+  --space-lg: 1.5rem;    /* 24 */
+  --space-xl: 2rem;      /* 32 */
+  --space-2xl: 3rem;     /* 48 */
+  --space-3xl: 4rem;     /* 64 */
+  --space-4xl: 6rem;     /* 96 */
+  --space-5xl: 8rem;     /* 128 */
+
+  /* Section padding fluido */
+  --section-y: clamp(4rem, 8vw, 8rem);
+  --container-x: clamp(1.25rem, 4vw, 2.5rem);
+  --container-max: 78rem;
+
+  /* ---------- Radius ---------- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* ---------- Borders ---------- */
+  --border-width: 1px;
+  --border-width-strong: 1.5px;
+
+  /* ---------- Easing & duration ---------- */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --duration-instant: 80ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 400ms;
+  --duration-slower: 700ms;
+  --duration-cinematic: 1200ms;
+
+  /* ---------- Shadows (refined, subtle) ---------- */
+  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.08);
+  --shadow-md: 0 4px 16px -4px oklch(0 0 0 / 0.18), 0 2px 6px -2px oklch(0 0 0 / 0.10);
+  --shadow-lg: 0 24px 60px -20px oklch(0 0 0 / 0.35), 0 8px 24px -8px oklch(0 0 0 / 0.18);
+  --shadow-glow: 0 0 0 1px var(--accent), 0 8px 32px -8px color-mix(in oklch, var(--accent) 40%, transparent);
+
+  /* ---------- Z-index ---------- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-overlay: 50;
+  --z-navbar: 100;
+  --z-modal: 1000;
+}
+
+/* =========================================================================
+   Theme: Dark (default)
+   Deep navy-tinted neutral + phosphor lime accent
+   ========================================================================= */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: oklch(0.13 0.012 250);
+  --bg-elevated: oklch(0.17 0.014 250);
+  --surface: oklch(0.20 0.014 250);
+  --surface-strong: oklch(0.24 0.016 250);
+  --surface-inverse: oklch(0.96 0.005 110);
+
+  --text: oklch(0.97 0.006 250);
+  --text-strong: oklch(1.00 0 0);
+  --text-secondary: oklch(0.78 0.012 250);
+  --text-muted: oklch(0.62 0.014 250);
+  --text-faint: oklch(0.46 0.012 250);
+  --text-on-accent: oklch(0.13 0.012 250);
+  --text-inverse: oklch(0.13 0.012 250);
+
+  --border: oklch(0.28 0.016 250);
+  --border-strong: oklch(0.36 0.018 250);
+  --border-faint: oklch(0.22 0.014 250);
+
+  --accent: oklch(0.86 0.17 115);
+  --accent-strong: oklch(0.91 0.19 115);
+  --accent-muted: oklch(0.86 0.17 115 / 0.18);
+  --accent-faint: oklch(0.86 0.17 115 / 0.08);
+
+  --danger: oklch(0.72 0.20 25);
+  --warning: oklch(0.82 0.16 75);
+  --success: oklch(0.78 0.16 150);
+  --info: oklch(0.74 0.13 230);
+
+  --code-bg: oklch(0.10 0.012 250);
+  --code-text: oklch(0.92 0.006 250);
+  --code-keyword: oklch(0.86 0.17 115);
+  --code-string: oklch(0.78 0.13 75);
+  --code-comment: oklch(0.50 0.012 250);
+}
+
+/* =========================================================================
+   Theme: Light
+   Warm-tinted off-white + darker phosphor lime
+   ========================================================================= */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: oklch(0.985 0.004 110);
+  --bg-elevated: oklch(0.97 0.005 110);
+  --surface: oklch(0.95 0.005 110);
+  --surface-strong: oklch(0.92 0.006 110);
+  --surface-inverse: oklch(0.17 0.014 250);
+
+  --text: oklch(0.18 0.012 250);
+  --text-strong: oklch(0.10 0.012 250);
+  --text-secondary: oklch(0.34 0.012 250);
+  --text-muted: oklch(0.46 0.012 250);
+  --text-faint: oklch(0.62 0.010 250);
+  --text-on-accent: oklch(0.13 0.012 250);
+  --text-inverse: oklch(0.97 0.006 250);
+
+  --border: oklch(0.86 0.008 110);
+  --border-strong: oklch(0.78 0.010 110);
+  --border-faint: oklch(0.92 0.006 110);
+
+  --accent: oklch(0.55 0.16 130);
+  --accent-strong: oklch(0.46 0.17 130);
+  --accent-muted: oklch(0.55 0.16 130 / 0.15);
+  --accent-faint: oklch(0.55 0.16 130 / 0.07);
+
+  --danger: oklch(0.52 0.20 25);
+  --warning: oklch(0.62 0.16 75);
+  --success: oklch(0.55 0.16 150);
+  --info: oklch(0.50 0.14 230);
+
+  --code-bg: oklch(0.94 0.005 110);
+  --code-text: oklch(0.18 0.012 250);
+  --code-keyword: oklch(0.46 0.17 130);
+  --code-string: oklch(0.45 0.13 75);
+  --code-comment: oklch(0.58 0.010 250);
+
+  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+  --shadow-md: 0 4px 16px -4px oklch(0 0 0 / 0.10), 0 2px 6px -2px oklch(0 0 0 / 0.06);
+  --shadow-lg: 0 24px 60px -20px oklch(0 0 0 / 0.18), 0 8px 24px -8px oklch(0 0 0 / 0.10);
+}
+
+/* =========================================================================
+   Theme: System preference (auto)
+   ========================================================================= */
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+
+    --bg: oklch(0.985 0.004 110);
+    --bg-elevated: oklch(0.97 0.005 110);
+    --surface: oklch(0.95 0.005 110);
+    --surface-strong: oklch(0.92 0.006 110);
+    --surface-inverse: oklch(0.17 0.014 250);
+
+    --text: oklch(0.18 0.012 250);
+    --text-strong: oklch(0.10 0.012 250);
+    --text-secondary: oklch(0.34 0.012 250);
+    --text-muted: oklch(0.46 0.012 250);
+    --text-faint: oklch(0.62 0.010 250);
+    --text-on-accent: oklch(0.13 0.012 250);
+    --text-inverse: oklch(0.97 0.006 250);
+
+    --border: oklch(0.86 0.008 110);
+    --border-strong: oklch(0.78 0.010 110);
+    --border-faint: oklch(0.92 0.006 110);
+
+    --accent: oklch(0.55 0.16 130);
+    --accent-strong: oklch(0.46 0.17 130);
+    --accent-muted: oklch(0.55 0.16 130 / 0.15);
+    --accent-faint: oklch(0.55 0.16 130 / 0.07);
+
+    --code-bg: oklch(0.94 0.005 110);
+    --code-text: oklch(0.18 0.012 250);
+    --code-keyword: oklch(0.46 0.17 130);
+    --code-string: oklch(0.45 0.13 75);
+    --code-comment: oklch(0.58 0.010 250);
+
+    --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+    --shadow-md: 0 4px 16px -4px oklch(0 0 0 / 0.10), 0 2px 6px -2px oklch(0 0 0 / 0.06);
+    --shadow-lg: 0 24px 60px -20px oklch(0 0 0 / 0.18), 0 8px 24px -8px oklch(0 0 0 / 0.10);
+  }
+}
