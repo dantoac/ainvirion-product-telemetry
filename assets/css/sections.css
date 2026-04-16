@@ -48,7 +48,7 @@
   font-weight: var(--fw-semibold);
 }
 
-/* Light mode: push the italic accent so it punches against warm off-white */
+/* Light mode: push the italic accent so it punches against celeste base */
 [data-theme="light"] .hero__title-em {
   color: var(--accent-strong);
 }
@@ -113,18 +113,18 @@
 
 [data-theme="light"] .hero__panel {
   box-shadow:
-    0 1px 3px 0 oklch(0 0 0 / 0.08),
-    0 12px 32px -8px oklch(0 0 0 / 0.18),
-    0 24px 60px -16px oklch(0 0 0 / 0.10),
+    0 1px 3px 0 oklch(0.30 0.03 230 / 0.10),
+    0 12px 32px -8px oklch(0.30 0.03 230 / 0.16),
+    0 24px 60px -16px oklch(0.30 0.03 230 / 0.12),
     0 0 0 1px color-mix(in oklch, var(--accent) 12%, transparent);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) .hero__panel {
     box-shadow:
-      0 1px 3px 0 oklch(0 0 0 / 0.08),
-      0 12px 32px -8px oklch(0 0 0 / 0.18),
-      0 24px 60px -16px oklch(0 0 0 / 0.10),
+      0 1px 3px 0 oklch(0.30 0.03 230 / 0.10),
+      0 12px 32px -8px oklch(0.30 0.03 230 / 0.16),
+      0 24px 60px -16px oklch(0.30 0.03 230 / 0.12),
       0 0 0 1px color-mix(in oklch, var(--accent) 12%, transparent);
   }
 }
