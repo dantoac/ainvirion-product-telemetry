@@ -160,7 +160,7 @@
   --text-secondary: oklch(0.36 0.014 240);
   --text-muted: oklch(0.48 0.014 240);
   --text-faint: oklch(0.62 0.012 240);
-  --text-on-accent: oklch(0.13 0.014 240);
+  --text-on-accent: oklch(0.99 0.005 130);
   --text-inverse: oklch(0.97 0.008 230);
 
   --border: oklch(0.84 0.024 230);
@@ -207,7 +207,7 @@
     --text-secondary: oklch(0.36 0.014 240);
     --text-muted: oklch(0.48 0.014 240);
     --text-faint: oklch(0.62 0.012 240);
-    --text-on-accent: oklch(0.13 0.014 240);
+    --text-on-accent: oklch(0.99 0.005 130);
     --text-inverse: oklch(0.97 0.008 230);
 
     --border: oklch(0.84 0.024 230);

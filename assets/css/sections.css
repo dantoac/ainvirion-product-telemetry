@@ -597,7 +597,7 @@
 .morph--fn__stage {
   display: grid;
   grid-template-columns: 1fr var(--fn-shape-w) 1fr;
-  align-items: center;
+  align-items: start;
   column-gap: var(--space-md);
   width: 100%;
 }
@@ -609,6 +609,7 @@
   white-space: nowrap;
   width: auto;
   letter-spacing: 0.01em;
+  padding-top: 0.35rem;
 }
 
 .morph--fn__pct {
@@ -619,6 +620,7 @@
   white-space: nowrap;
   width: auto;
   font-variant-numeric: tabular-nums;
+  padding-top: 0.35rem;
 }
 
 .morph--fn__shape {
