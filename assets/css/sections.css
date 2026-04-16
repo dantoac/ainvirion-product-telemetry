@@ -1369,45 +1369,6 @@
   font-weight: var(--fw-medium);
 }
 
-/* ---------- Docs index (what's in the repo) ---------- */
-.docs__index {
-  border-top: 1px solid var(--border);
-  padding-top: var(--space-lg);
-  margin-bottom: var(--space-lg);
-}
-
-.docs__index-label {
-  font-size: var(--fs-2xs);
-  color: var(--text-secondary);
-  letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--space-sm);
-}
-
-.docs__index-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 0.6rem var(--space-xl);
-}
-
-.docs__index-list li {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
-  font-size: var(--fs-xs);
-  padding: 0.35rem 0;
-}
-
-.docs__index-path {
-  color: var(--accent);
-  font-size: var(--fs-2xs);
-  flex-shrink: 0;
-  min-width: 11rem;
-}
-
-.docs__index-desc {
-  color: var(--text-secondary);
-}
-
 /* ---------- Honest version banner ---------- */
 .docs__banner {
   display: flex;
