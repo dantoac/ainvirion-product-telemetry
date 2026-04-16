@@ -156,6 +156,10 @@
               <span class="hero__meta-key mono" data-i18n="hero.meta.license.label">source</span>
               <span class="hero__meta-val" data-i18n="hero.meta.license">Available · ask for access</span>
             </li>
+            <li>
+              <span class="hero__meta-key mono" data-i18n="hero.meta.status.label">status</span>
+              <span class="hero__meta-val" data-i18n="hero.meta.status">v0.9 pre-release</span>
+            </li>
           </ul>
         </div>
 
@@ -459,10 +463,11 @@
             </p>
             <ul class="plan__features">
               <li data-i18n="pricing.plan.self.f1">All product features</li>
-              <li data-i18n="pricing.plan.self.f2">Source access (NDA)</li>
+              <li data-i18n="pricing.plan.self.f2">Source access (NDA) — read, run, modify</li>
               <li data-i18n="pricing.plan.self.f3">Community support via GitHub Issues</li>
             </ul>
-            <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" data-i18n="pricing.plan.self.cta">Get access</a>
+            <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" data-i18n="pricing.plan.self.cta">Request access via GitHub ↗</a>
+            <p class="plan__note mono" data-i18n="pricing.plan.self.note">We respond within 48 h via GitHub Issues.</p>
           </li>
 
           <li class="plan plan--featured">
@@ -682,7 +687,7 @@ $ docker compose up -d
         </div>
         <div class="cta-band__actions">
           <a href="/register" class="btn btn--primary btn--lg" data-i18n="cta.primary">Start free</a>
-          <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--lg" data-i18n="cta.secondary">Talk to us</a>
+          <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--lg" data-i18n="cta.secondary">Talk to us on GitHub ↗</a>
         </div>
       </div>
     </section>
@@ -718,15 +723,15 @@ $ docker compose up -d
 
         <div class="footer-contact">
           <a href="https://github.com/AInvirion/support/issues/new/choose" target="_blank" rel="noopener noreferrer" data-i18n="footer.support">Get support</a>
-          <span class="footer-phone mono">(425) 276-7365</span>
+          <a href="tel:+14252767365" class="footer-phone mono">(425) 276-7365</a>
         </div>
       </div>
 
       <div class="footer-bottom">
         <p class="footer-legal">© <span data-year>2026</span> AInvirion · Seattle, USA · Santiago, Chile</p>
         <nav class="footer-legal-links" aria-label="Legal">
-          <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
-          <a href="#" data-i18n="footer.terms">Terms of Service</a>
+          <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+          <a href="/terms" data-i18n="footer.terms">Terms of Service</a>
         </nav>
       </div>
     </div>

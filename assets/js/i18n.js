@@ -50,6 +50,13 @@
   async function setLang(lang) {
     if (!SUPPORTED.includes(lang)) lang = DEFAULT_LANG;
     const dict = await loadDict(lang);
+
+    // If a non-English locale failed to load, fall back to English
+    // so the UI language indicator stays consistent with the content.
+    if (!dict && lang !== DEFAULT_LANG) {
+      lang = DEFAULT_LANG;
+    }
+
     applyDict(dict);
 
     document.documentElement.lang = lang;

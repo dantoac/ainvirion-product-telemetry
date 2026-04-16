@@ -226,8 +226,10 @@
         btn.classList.add("is-done");
         if (container) container.classList.add("is-copied");
       } else {
-        const fallback = resolveLabel("common.copy.fallback") || "press ⌘C";
-        label.textContent = fallback;
+        const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+        const defaultFallback = isMac ? "press ⌘C" : "press Ctrl+C";
+        const fallback = resolveLabel("common.copy.fallback");
+        label.textContent = isMac && fallback ? fallback.replace("Ctrl+C", "⌘C") : (fallback || defaultFallback);
         // Select the source text for manual copy
         const range = document.createRange();
         range.selectNodeContents(source);

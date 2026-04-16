@@ -1052,6 +1052,13 @@
   font-family: var(--font-mono);
 }
 
+.plan__note {
+  margin-top: var(--space-xs);
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+  text-align: center;
+}
+
 .plan .btn {
   margin-top: var(--space-sm);
   align-self: stretch;
